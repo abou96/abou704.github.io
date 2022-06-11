@@ -1,0 +1,294 @@
+---
+layout: default
+title: "Mon experience avec le module regex"
+date: 2022-06-04 05:00:00 +0200
+published: 2022-06-04 05:00:00 +0200
+comments: true
+categories: development, NLP
+tags: [Python, Developpement, NLP ]
+github: "https://github.com/abou704/quarkus-camel-first-impressions-on-a-game-changing-framework/"
+---
+
+<p>
+Une expression régulière (regex ou RE en abrégé), comme son nom l'indique, est une expression qui contient une séquence de caractères définissant un modèle de recherche. 
+Prenons l'exemple de cette simple expression régulière:
+{% highlight python %}
+	\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b 
+{% endhighlight %}
+
+Cette expression peut être utilisée pour trouver tous les e-mails possibles dans un grand corpus de texte. 
+C'est utile parce que sinon, vous devrez parcourir manuellement l'ensemble du document texte et trouver chaque identifiant d'email qu'il contient. 
+Après avoir lu cet article, vous saurez comment fonctionne l'expression régulière ci-dessus et bien plus encore. Nous pouvons utiliser différents langages de programmation tels que Java, Python, JavaScript, PHP et bien d'autres pour mettre en œuvre des expressions régulières,
+mais il existe certaines variations dans sa mise en œuvre dans ces langages. Voyons maintenant les sous-thèmes que nous allons aborder dans cet article :
+</p>
+<!--more-->
+
+<h2>Qu’est ce que c’est que Regex en python ?</h2>
+
+
+<p>En Python, une expression régulière (RE, regex ou motif regex) est importée par le biais du module re qui est un module intégré à Python 
+et que vous n'avez donc pas besoin d'installer séparément.
+
+Le module re offre un ensemble de fonctions qui nous permettent de rechercher une chaîne de caractères pour une correspondance
+
+</p>
+
+{% highlight markdown %}
+First Header | Second Header
+------------ | ------------
+Content cell 1 | Content cell 2 
+Content column 1 | Content column 2
+{% endhighlight %}
+
+<p> 
+	Nous utiliserons toutes ces méthodes une fois que nous saurons comment écrire des expressions régulières, ce que nous apprendrons dans la section suivante.
+</p>
+
+<h2> Comment écrire Regex en Python ?</h2>
+
+<p>
+Pour apprendre à écrire du RE, clarifions d'abord certaines des bases. Dans RE, nous utilisons soit des littéraux, soit des métacaractères. 
+Les littéraux sont les caractères eux-mêmes et n'ont pas de signification particulière. Voici un exemple dans lequel j'utilise des littéraux pour trouver une chaîne spécifique dans le texte en utilisant la méthode findall du module RE.
+</p>
+{% highlight python %}
+import re
+string="Bonjour mon nom est Abou"
+print(re.findall(r"Abou",string))
+{% endhighlight %}
+
+{% highlight python %}
+OUTPUT:
+['Abou']
+{% endhighlight %}
+
+<p>
+Comme vous pouvez le constater, nous avons utilisé le mot "Abou" lui-même pour le trouver dans le texte. Cela peut ne pas sembler une bonne idée lorsque nous devons extraire des milliers de noms d'un corpus de texte. Pour ce faire, nous devons trouver un modèle spécifique et utiliser des métacaractères.
+</p>
+
+<h3>Métacaractère</h3>
+<p>
+Les métacaractères sont des caractères ayant une signification particulière et ils ne sont pas interprétés tels quels, ce qui est le cas des littéraux. Nous pouvons encore classer les métacaractères en identificateurs et en modificateurs.
+
+Les identificateurs sont utilisés pour reconnaître un certain type de caractères. Par exemple, pour trouver tous les caractères numériques d'une chaîne, nous pouvons utiliser l'identificateur '/d'.
+</p>
+
+{% highlight python %}
+import re
+string="Bonjour j'ai 25 ans et je pèse 80 kg"
+print(re.findall(r"\d",string))
+{% endhighlight %}
+
+{% highlight python %}
+OUTPUT:
+['2', '5', '8', '0']
+{% endhighlight %}
+
+<p>
+Mais il semble y avoir un problème avec cela. Elle ne renvoie que des nombres à un seul chiffre et, pire encore, elle divise le nombre 23 en deux chiffres. 
+Comment résoudre ce problème ? L'utilisation de deux chiffres peut-elle aider ?
+</p>
+
+{% highlight python %}
+import re
+string="Bonjour j'ai 25 ans et je pèse 80 kg"
+print(re.findall(r"\d\d",string))
+{% endhighlight %}
+
+{% highlight python %}
+OUTPUT:
+['25', '80']
+{% endhighlight %}
+
+<p>
+L'utilisation de deux identificateurs a été utile, mais elle ne peut maintenant trouver que des nombres à deux chiffres, ce qui n'est pas ce que nous voulions.
+Une façon de résoudre ce problème sera d'utiliser des modificateurs, mais d'abord, voici quelques identificateurs que nous pouvons utiliser en Python. 
+Nous utiliserons certains d'entre eux dans les exemples que nous allons faire dans la section suivante. 
+</p>
+
+{% highlight markdown %}
+First Header | Second Header
+------------ | ------------
+Content cell 1 | Content cell 2 
+Content column 1 | Content column 2
+{% endhighlight %}
+
+<p>
+Les modificateurs sont un ensemble de métacaractères qui ajoutent des fonctionnalités supplémentaires aux identificateurs. Pour revenir à l'exemple ci-dessus, nous allons voir comment utiliser le modificateur " + " pour obtenir des nombres de n'importe quelle longueur à partir de la chaîne. 
+Ce modificateur renvoie une chaîne lorsqu'il correspond à 1 ou plusieurs caractères.
+</p>
+
+{% highlight python %}
+import re
+string="Bonjour j'ai 25 ans et je pèse 80 kg"
+print(re.findall(r"\d+",string))
+{% endhighlight %}
+
+<p>
+Super ! Enfin, nous avons obtenu les résultats souhaités. En utilisant le modificateur '+' avec l'identifiant /d, je peux extraire des nombres de n'importe quelle longueur. 
+Voici quelques-uns des modificateurs que nous allons également utiliser dans la section des exemples à venir.
+</p>
+{% highlight markdown %}
+First Header | Second Header
+------------ | ------------
+Content cell 1 | Content cell 2 
+Content column 1 | Content column 2
+{% endhighlight %}
+
+<p>
+Avez-vous remarqué que nous utilisons le caractère r au début de tous les RE, ce r est appelé un littéral de chaîne brut. 
+Il modifie la façon dont le littéral de chaîne est interprété. Ces littéraux sont stockés tels qu'ils apparaissent.
+	
+Par exemple, \ est interprété comme une séquence d'échappement habituellement, mais c'est juste une barre oblique inversée lorsqu'elle est préfixée par un r. 
+Vous verrez ce que cela signifie avec les caractères spéciaux. Parfois, la syntaxe implique des caractères avec barre oblique inversée, et pour éviter que ces caractères soient interprétés comme des séquences d'échappement, nous utilisons ces littéraux de chaîne bruts.
+</p>
+
+
+<h2>Exemples de REGEX en python</h2>
+<p>
+Explorons certains des exemples liés aux métacaractères. Nous allons voir comment utiliser différents métacaractères et quel effet ils ont sur la sortie :
+</p>
+
+{% highlight python %}
+import re
+string="reviens à la maison dans une semaine !!!"
+print(re.findall(r"\w+",string))
+{% endhighlight %}
+
+
+<p>
+Maintenant que nous avons vu suffisamment de méta-caractères, nous allons voir comment fonctionnent certaines des méthodes du module re. Tout d'abord, commençons par re.compile
+</p>
+
+<h3>re.compile</h3>
+
+<p>
+Nous pouvons combiner un motif d'expression régulière en objets de motif, qui peuvent être utilisés pour la correspondance de motifs. 
+Cela permet également de rechercher à nouveau un motif sans le réécrire. Voici un exemple :
+</p>
+{% highlight python %}
+import re
+pattern=re.compile('[A-Z][a-z]+')
+result=pattern.findall('Apprendre et Comprendre vont de paire')
+print(result)
+{% endhighlight %}
+
+{% highlight python %}
+OUTPUT:
+['Apprendre', 'Comprendre']
+{% endhighlight %}
+
+<h3>re.search</h3>
+
+La fonction re.search recherche une correspondance dans la chaîne de caractères et renvoie un objet Match s'il y a une correspondance. 
+S'il y a plus d'une correspondance, seule la première occurrence de la correspondance sera retournée. Voici un exemple :
+
+{% highlight python %}
+import re
+txt = "Il pleut au Maroc"
+print(re.search("Maroc", txt))
+{% endhighlight %}
+
+{% highlight python %}
+OUTPUT:
+<_sre.SRE_Match object; span=(12, 17), match='Maroc'> 
+{% endhighlight %}
+
+<h3>re.split</h3>
+<p> La fonction re.split renvoie une liste où la chaîne a été divisée à chaque correspondance : </p>
+	
+{% highlight python %}
+import re
+s_nums = 'un1deux22trois333quatre'
+print(re.split('\d+', s_nums))
+{% endhighlight %}
+	
+{% highlight python %}
+OUTPUT:
+['un', 'deux', 'trois', 'quatre']
+{% endhighlight %}
+
+
+<h3>re.sub</h3>
+<p> La fonction re.sub remplace les correspondances par le texte de votre choix. </p>
+	
+{% highlight python %}
+import re
+s = 'aaa@xxx.com bbb@yyy.com ccc@zzz.com'
+print(re.sub('[a-z]*@', 'XXX@', s))
+{% endhighlight %}
+	
+{% highlight python %}
+XXX@xxx.com XXX@yyy.com XXX@zzz.com
+{% endhighlight %}
+
+
+<h3> re.subn </h3>
+<p> Comme mentionné précédemment, la fonction re.subn est similaire à la fonction re.sub mais elle renvoie un tuple de 2 éléments contenant la nouvelle chaîne et le nombre de substitutions effectuées. </p>
+
+{% highlight python %}
+import re
+s = 'aaa@xxx.com bbb@yyy.com ccc@zzz.com'
+print(re.subn('[a-z]*@', 'XXX@', s))
+{% endhighlight %}
+
+{% highlight python %}
+('XXX@xxx.com XXX@yyy.com XXX@zzz.com', 3)
+{% endhighlight %}
+
+
+<h3> re.match </h3>
+<p> La fonction re.match recherche le modèle d'expression régulière et renvoie la première occurrence. Cette méthode vérifie la présence d'une correspondance uniquement au début de la chaîne. Ainsi, si une correspondance est trouvée dans la première ligne, elle renvoie l'objet match. Mais si une correspondance est trouvée dans une autre ligne, elle renvoie null. Voici un exemple : </p>
+
+{% highlight python %}
+
+import re 
+String ='''apprendre le regex avec 
+           un bon apprentissage est facile 
+           Le regex est également très utile pour la correspondance des chaînes de caractères. 
+           C'est également rapide.'''
+  
+# Use of re.search() Method 
+print(re.search('learning', String)) 
+# Use of re.match() Method 
+print(re.match('learning', String)) 
+# Use of re.search() Method 
+print(re.search('great learning', String)) 
+# Use of re.match() Method 
+print(re.match('great learning', String)) 
+
+{% endhighlight %}
+
+{% highlight python %}
+OUTPUT:
+<re.Match object; span=(0, 9), match='apprendre'>
+<re.Match object; span=(0, 9), match='apprendre'>
+<re.Match object; span=(39, 56), match='bon apprentissage'>
+None 
+{% endhighlight %}
+
+
+<h3> re.group </h3>
+<p> La fonction re.group renvoie l'ensemble de la correspondance (ou un sous-groupe spécifique). Nous pouvons mentionner des sous-groupes dans une expression régulière si nous les mettons entre parenthèses. Voici un exemple pour le rendre plus clair. </p>
+
+{% highlight python %}
+import re
+string = "Les chiens sont plus fidèles que les chats"
+matchObj = re.match( r'(.*) sont (.*?) .*', string)
+print ("matchObj.group() : ", matchObj.group(0))
+print ("matchObj.group(1) : ", matchObj.group(1))
+print ("matchObj.group(2) : ", matchObj.group(2))
+{% endhighlight %}
+	
+{% highlight python %}
+matchObj.group() :  Les chiens sont plus fidèles que les chats
+matchObj.group(1) :  Les chiens
+matchObj.group(2) :  plus
+{% endhighlight %}
+	
+<p>
+Nous définissons un groupe dans une expression régulière en les mettant entre parenthèses. Comme vous pouvez le voir, nous avons défini deux groupes dans l'expression régulière ci-dessus, l'un est avant are et l'autre après. 
+Ainsi, dans le groupe 1, nous avons dogs et dans le groupe 2, nous avons more.
+</p>
+
+<h2> Programme Regex en Python </h2>
+	
