@@ -67,7 +67,33 @@ standings_table = soup.select('table.stats_table')[0]
     La prochaine chose que nous devons faire
     c'est donner à notre objet soupe quelque chose à
     sélectionner dans la page web. 
+
+    Je vais vous montrer comment on va créer notre sélecteur
+    Il faut tout d'abord retourner sur le site. Si vous
+    regardez l'html vous pouvez voir que
+    toutes les données que nous voulons sont dans cette
+    table taget elle a la classe stats_table donc la
+    première chose qu'on va faire c'est de sélectionner 
+    ce tableau et ensuite nous allons sélectionner toutes les balises a, les balises d'ancrage avec les liens
+    que nous voulons à l'intérieur de la table.
+    allons-y et sélectionnons la table. Pour sélectionner la table ce qu'on va faire
+    c'est qu'on va juste taper soup.select
+    et ceci est appelé un sélecteur css
+    et dans un sélecteur css on tape le nom de la balise qui est table et ensuite
+    un point et ensuite le nom de la classe
+    et si vous vous souvenez la classe est
+    stats_table donc nous allons sélectionner tous les
+    éléments de table dans notre page qui ont la
+    classe stats_table
+    et nous ne voulons que le premier donc
+    on va s'assurer de mettre à zéro cette liste qui
+    sera retournée et nous ne sélectionnerons que le
+    premier élément de cette liste
+    et ensuite on va réassigner ça
+    à une variable appelée tableau des classements.
 </p>
+
+
 
 
 
