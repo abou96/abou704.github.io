@@ -1,0 +1,68 @@
+---
+layout: default
+title: "Comment faire du scrapping avec Python"
+date: 2022-07-25 05:00:00 +0200
+published: 2022-06-04 05:00:00 +0200
+comments: true
+categories: development, NLP
+tags: [Python, Developpement, NLP ]
+---
+
+<p>
+    Le web scraping (parfois appelé harvesting) est une technique d'extraction du contenu de sites Web, via un script ou un programme, dans le but de le transformer pour permettre son utilisation dans un autre contexte, par exemple le référencement (Wikipedia)
+Concretement, c'est comme faire du copier-coller automatique ets tructuré grace à des logiciels ou programmes.
+Il existe une multitude de manière de faire du scrapping (Selenium, weboob, Beautiful Soup avec Python ...). Nous allons voir ci-dessous deux manières de "gratter" des données de quelques sites.
+
+</p>
+<!--more-->
+
+<h2>Scrapping avec BeautifulSoup</h2>
+
+<p>Nous allons travailler sur un projet très intéressant. Il consite à récuperer les résultats des matchs de la première ligue anglaise . L' etape que nous suivrons ce decline comme suit : Premierement nous allons télécharger les données du site web en utilisant une bibliothèque appelée <br requests> en python puis nous les analyserons à l'aide de beautiful soup. Ce qui permettra par la suite d'extraire ce dont nous avons besoin. Enfin, nous chargerons tout dans un dataframe pandas pour pouvoir faire le nettoyage des données et les préparer pour faire de l'apprentissage automatique. 
+
+</p>
+{% highlight python %}
+import requests
+standings_url = "https://fbref.com/en/comps/9/Premier-League-Stats"
+data = requests.get(standings_url)
+{% endhighlight %}
+
+{% highlight python %}
+OUTPUT:
+<Response [200]>
+{% endhighlight %}
+<p>
+Après avoir télécharger les données, nous pouvons regarder le html en tapant <br data.text> et cela nous donnera une très très longue chaîne de caractères difficile à analyser en html. Heuresement, les navigateurs le font pour nous. ils transforment cette chaîne html en éléments graphiques que nous pouvons regarder et comprendre.
+
+Ainsi pour analyser la page pour en extraire des données, on ne va pas regarder la chaine de caractères
+on va plutot regarder la page et trouver ce que l'on veut <br scrapper>.
+
+<p> 
+	NB: Assurez vous d'avoir en output Response [200]. Ceci confirme que la requete a bien fonctionnée. 
+</p>
+
+</p>
+{% highlight python %}
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(data.text)
+standings_table = soup.select('table.stats_table')[0]
+{% endhighlight %}
+
+
+<p> 
+pour analyser réellement notre html, nous allons utiliser une bibliothèque appelée "beautiful soup c'est un nom un peu bizarre mais c'est une très bonne librairie pour analyser le html. Premierement, on a importé la librairie, ensuite on l'initialise en utilisant notre html donc on appelle la classe soup et on lui passe en argument data.txt qui est le fichier html que nous avons téléchargé. La prochaine étape que nous devons faire c'est de donner à notre objet soup quelque chose à sélectionner dans la page web. 
+</p>
+<p>
+
+Je vais vous montrer comment on va créer notre sélecteur. Il faut tout d'abord retourner sur le site. Si vous
+regardez l'html vous pouvez voir que toutes les données que nous voulons sont dans cette table taget elle a la classe stats_table donc la première chose qu'on va faire c'est de sélectionner ce tableau et ensuite nous allons sélectionner toutes les balises a, les balises d'ancrage avec les liens que nous voulons à l'intérieur de la table.
+
+Pour sélectionner la table ce qu'on va faire. c'est qu'on va juste taper soup.select, ceci est appelé un sélecteur css et dans un sélecteur css on tape le nom de la balise qui est table et ensuite un <br .> et ensuite le nom de la classe
+et si vous vous souvenez la classe est stats_table donc nous allons sélectionner tous les
+éléments de table dans notre page qui ont la classe stats_table et nous ne voulons que le premier donc on va s'assurer de mettre à zéro cette liste qui sera retournée et nous ne sélectionnerons que le premier élément de cette liste et ensuite on va réassigner ça à une variable appelée standings_table.
+</p>
+
+
+
+
+
