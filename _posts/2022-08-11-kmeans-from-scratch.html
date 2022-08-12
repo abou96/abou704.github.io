@@ -49,17 +49,32 @@ Messi, la deuxième ligne est Robert Lewandowski. et ainsi de suite, et chaque c
 
 <img src="/assets/images/posts/kmeans-from-scratch/players.png" alt="Players"> 
 
-<p> 
-	NB: Assurez vous d'avoir en output Response [200]. Ceci confirme que la requete a bien fonctionnée. 
-</p>
+<h2>Features selection</h2>
+
+les cinq caractéristiques que nous allons examiner pour le clustering sont :
+
+<ul> L'évaluation globale (overal)</ul>
+<ul> Le potentiel, le classement le plus élevé qu'ils pourraient obtenir dans le futur (potential) </ul>
+<ul> Leur valeur pour leur club actuel (wage_eur) </ul>
+<ul> Leur salaire, c'est-à-dire leur salaire annuel (value_eur) </ul>
+<ul> Leur âge (age) </ul>
+
+Nous allons donc regrouper les joueurs en fonction de ces
+cinq caractéristiques
 
 </p>
 {% highlight python %}
-from bs4 import BeautifulSoup
-soup = BeautifulSoup(data.text)
-standings_table = soup.select('table.stats_table')[0]
+features = ["overall", "potential", "wage_eur", "value_eur", "age"]
 {% endhighlight %}
 
+<h2>Data cleaning</h2>
+
+{% highlight python %}
+players = players.dropna(subset=features)
+data = players[features].copy()
+{% endhighlight %}
+
+<img src="/assets/images/posts/kmeans-from-scratch/features.png" alt="Players"> 
 
 <p> 
 pour analyser réellement notre html, nous allons utiliser une bibliothèque appelée "beautiful soup c'est un nom un peu bizarre mais c'est une très bonne librairie pour analyser le html. Premierement, on a importé la librairie, ensuite on l'initialise en utilisant notre html donc on appelle la classe soup et on lui passe en argument data.txt qui est le fichier html que nous avons téléchargé. La prochaine étape que nous devons faire c'est de donner à notre objet soup quelque chose à sélectionner dans la page web. 
