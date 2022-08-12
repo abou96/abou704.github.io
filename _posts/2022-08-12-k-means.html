@@ -16,6 +16,8 @@ tags: [Python, Machine Learning]
 <title>k-means</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
+
+
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -14580,93 +14582,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     </script>
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install nbconvert
 
-<span class="o">!</span>pip install pyppeteer
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Requirement already satisfied: nbconvert in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (6.4.4)
-Requirement already satisfied: pandocfilters&gt;=1.4.1 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (1.5.0)
-Requirement already satisfied: nbclient&lt;0.6.0,&gt;=0.5.0 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (0.5.13)
-Requirement already satisfied: traitlets&gt;=5.0 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (5.1.1)
-Requirement already satisfied: jupyter-core in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (4.9.2)
-Requirement already satisfied: testpath in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (0.5.0)
-Requirement already satisfied: nbformat&gt;=4.4 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (5.3.0)
-Requirement already satisfied: entrypoints&gt;=0.2.2 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (0.4)
-Requirement already satisfied: pygments&gt;=2.4.1 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (2.11.2)
-Requirement already satisfied: jupyterlab-pygments in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (0.1.2)
-Requirement already satisfied: jinja2&gt;=2.4 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (2.11.3)
-Requirement already satisfied: beautifulsoup4 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (4.11.1)
-Requirement already satisfied: mistune&lt;2,&gt;=0.8.1 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (0.8.4)
-Requirement already satisfied: bleach in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (4.1.0)
-Requirement already satisfied: defusedxml in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbconvert) (0.7.1)
-Requirement already satisfied: MarkupSafe&gt;=0.23 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from jinja2&gt;=2.4-&gt;nbconvert) (2.0.1)
-Requirement already satisfied: jupyter-client&gt;=6.1.5 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbclient&lt;0.6.0,&gt;=0.5.0-&gt;nbconvert) (6.1.12)
-Requirement already satisfied: nest-asyncio in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbclient&lt;0.6.0,&gt;=0.5.0-&gt;nbconvert) (1.5.5)
-Requirement already satisfied: python-dateutil&gt;=2.1 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from jupyter-client&gt;=6.1.5-&gt;nbclient&lt;0.6.0,&gt;=0.5.0-&gt;nbconvert) (2.8.2)
-Requirement already satisfied: pyzmq&gt;=13 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from jupyter-client&gt;=6.1.5-&gt;nbclient&lt;0.6.0,&gt;=0.5.0-&gt;nbconvert) (22.3.0)
-Requirement already satisfied: tornado&gt;=4.1 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from jupyter-client&gt;=6.1.5-&gt;nbclient&lt;0.6.0,&gt;=0.5.0-&gt;nbconvert) (6.1)
-Requirement already satisfied: jsonschema&gt;=2.6 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbformat&gt;=4.4-&gt;nbconvert) (4.4.0)
-Requirement already satisfied: fastjsonschema in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from nbformat&gt;=4.4-&gt;nbconvert) (2.15.1)
-Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,&gt;=0.14.0 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=4.4-&gt;nbconvert) (0.18.0)
-Requirement already satisfied: attrs&gt;=17.4.0 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from jsonschema&gt;=2.6-&gt;nbformat&gt;=4.4-&gt;nbconvert) (21.4.0)
-Requirement already satisfied: six&gt;=1.5 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from python-dateutil&gt;=2.1-&gt;jupyter-client&gt;=6.1.5-&gt;nbclient&lt;0.6.0,&gt;=0.5.0-&gt;nbconvert) (1.16.0)
-Requirement already satisfied: soupsieve&gt;1.2 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from beautifulsoup4-&gt;nbconvert) (2.3.1)
-Requirement already satisfied: webencodings in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from bleach-&gt;nbconvert) (0.5.1)
-Requirement already satisfied: packaging in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from bleach-&gt;nbconvert) (21.3)
-Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from packaging-&gt;bleach-&gt;nbconvert) (3.0.4)
-Collecting pyppeteer
-  Downloading pyppeteer-1.0.2-py3-none-any.whl (83 kB)
-     |████████████████████████████████| 83 kB 1.3 MB/s eta 0:00:01
-Requirement already satisfied: urllib3&lt;2.0.0,&gt;=1.25.8 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from pyppeteer) (1.26.9)
-Requirement already satisfied: tqdm&lt;5.0.0,&gt;=4.42.1 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from pyppeteer) (4.64.0)
-Collecting websockets&lt;11.0,&gt;=10.0
-  Downloading websockets-10.3-cp39-cp39-macosx_10_9_x86_64.whl (97 kB)
-     |████████████████████████████████| 97 kB 2.8 MB/s eta 0:00:01
-Requirement already satisfied: certifi&gt;=2021 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from pyppeteer) (2021.10.8)
-Requirement already satisfied: appdirs&lt;2.0.0,&gt;=1.4.3 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from pyppeteer) (1.4.4)
-Requirement already satisfied: importlib-metadata&gt;=1.4 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from pyppeteer) (4.11.3)
-Collecting pyee&lt;9.0.0,&gt;=8.1.0
-  Downloading pyee-8.2.2-py2.py3-none-any.whl (12 kB)
-Requirement already satisfied: zipp&gt;=0.5 in /Users/mac/opt/anaconda3/lib/python3.9/site-packages (from importlib-metadata&gt;=1.4-&gt;pyppeteer) (3.7.0)
-Installing collected packages: websockets, pyee, pyppeteer
-Successfully installed pyee-8.2.2 pyppeteer-1.0.2 websockets-10.3
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16572,6 +16488,62 @@ dtype: int64</pre>
 </div>
 </div>
 
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="o">!</span>jupyter nbconvert --to html k-means.ipynb
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>[NbConvertApp] Converting notebook k-means.ipynb to html
+[NbConvertApp] Writing 676906 bytes to k-means.html
+</pre>
+</div>
 </div>
 
 </div>
